@@ -20,4 +20,4 @@ This project is a robust and secure banking application designed to manage accou
 - Michael Adeleye
 - Vanit Kashab
 - Riaz Hussein
-- Scotty M
+- Scott Maneely
