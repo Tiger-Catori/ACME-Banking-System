@@ -1,4 +1,4 @@
 package com.acmebank.model;
 
-public class BusinessAccount extends Account {
-}
+//public class BusinessAccount extends Account {
+//}

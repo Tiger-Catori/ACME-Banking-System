@@ -1,4 +1,4 @@
 package com.acmebank.model;
 
-public class IsaAccount extends Account {
-}
+//public class IsaAccount extends Account {
+//}
