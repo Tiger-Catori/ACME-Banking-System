@@ -5,8 +5,7 @@ public class PersonalAccount extends Account {
     private static final int SORT_CODE = 606060;
 
     public PersonalAccount(double currentBalance) {
-        // Rounding to 2 decimal places.
-        super((Math.round(currentBalance * 100.00) / 100.00), SORT_CODE);
+        super(currentBalance, SORT_CODE);
     }
 
     @Override
