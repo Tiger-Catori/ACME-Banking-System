@@ -14,8 +14,7 @@ public abstract class Account {
         // Setting random 8 digit number in the constructor.
         this.accountNumber = (int) (Math.random() * 90_000_000) + 10_000_000;
         this.sortCode = sortCode;
-        // Rounding to 2 decimal places.
-        this.currentBalance = (Math.round(currentBalance * 100.00) / 100.00);
+        this.currentBalance = Math.round(currentBalance * 100.00) / 100.00;
     }
 
     // Abstract Methods
@@ -43,9 +42,9 @@ public abstract class Account {
     public void displayDetails(){
         System.out.println(
                 "These are your account details: " +
-                        "\nAccount Number: " + accountNumber +
-                        "\nSortCode: " + sortCode +
-                        "\nBalance: " + currentBalance
+                    "\nAccount Number: " + accountNumber +
+                    "\nSortCode: " + sortCode +
+                    "\nBalance: " + currentBalance
 
         );
     }

@@ -7,13 +7,12 @@ import com.acmebank.model.PersonalAccount;
 public class Main {
 
     public static void main(String[] args) {
-        Account account1 = new PersonalAccount(10.348);
-        Account account2 = new PersonalAccount(89.132);
-        Account account3 = new IsaAccount(101);
-        account1.displayDetails();
+        Account account1 = PersonalAccount.create(0.3);
+        Account account2 = PersonalAccount.create(34.135);
+        // account1.displayDetails();
+        // System.out.println(account1.getAccountNumber());
         System.out.println();
-        account3.displayDetails();
-        System.out.println(account3.calculateInterest());
+        account2.displayDetails();
 
     }
 

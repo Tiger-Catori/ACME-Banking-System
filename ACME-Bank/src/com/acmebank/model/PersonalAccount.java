@@ -8,6 +8,18 @@ public class PersonalAccount extends Account {
         super(currentBalance, SORT_CODE);
     }
 
+    // Using Factory Pattern to only create PersonalAccount objects
+    // if its balance is greater than 1.
+    // To Enforce £1 minimum opening balance.
+    public static PersonalAccount create(double amount) {
+       if (amount >= 1) {
+           return new PersonalAccount(amount);
+       } else {
+           return null;
+       }
+    }
+
+
     @Override
     public double deposit(double amount) {
         if (amount >= 0) {

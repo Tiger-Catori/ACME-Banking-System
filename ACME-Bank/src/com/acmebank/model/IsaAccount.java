@@ -6,7 +6,7 @@ import java.math.RoundingMode;
 public class IsaAccount extends Account {
     private static final int SORT_CODE = 606070;
 
-    public IsaAccount(double currentBalance) {
+    public IsaAccount(double currentBalance) throws Exception {
         super(currentBalance, SORT_CODE);
     }
 
@@ -29,7 +29,7 @@ public class IsaAccount extends Account {
     @Override
     public double calculateInterest() {
         double balance = getBalance();
-        double interest = 1.0275;
+        double interest = 1.0275; // 2.75%
 
         // Rounding to 2 dp with BigDecimal class
         BigDecimal roundedNumber = new BigDecimal(interest * balance).setScale(2, RoundingMode.HALF_UP);
