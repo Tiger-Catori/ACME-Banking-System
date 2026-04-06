@@ -12,10 +12,10 @@ public class PersonalAccount extends Account {
     // if its balance is greater than 1.
     // To Enforce £1 minimum opening balance.
     public static PersonalAccount create(double amount) {
-       if (amount >= 1) {
+       if (amount >= 1) { // Create new PersonalAccount object.
            return new PersonalAccount(amount);
        } else {
-           return null;
+           return null; // Don't create new object
        }
     }
 
@@ -30,9 +30,9 @@ public class PersonalAccount extends Account {
 
     @Override
     public double withdraw(double amount) {
-        // Set an overdraft of 500.
+        // Set an overdraft of £500.
         int overdraft = 500;
-        if (getBalance() - amount >= -500) {
+        if (getBalance() - amount >= -overdraft) {
             setBalance(getBalance() - amount);
         }
         return getBalance();
