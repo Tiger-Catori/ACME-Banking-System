@@ -7,10 +7,10 @@ import com.acmebank.model.PersonalAccount;
 public class Main {
 
     public static void main(String[] args) {
-        Account account1 = PersonalAccount.create(0.3);
-        Account account2 = PersonalAccount.create(34.135);
-        // account1.displayDetails();
-        // System.out.println(account1.getAccountNumber());
+        Account account1 = PersonalAccount.create(72.575);
+        Account account2 = PersonalAccount.create(99.366);
+        // System.out.println();
+        account1.displayDetails();
         System.out.println();
         account2.displayDetails();
 

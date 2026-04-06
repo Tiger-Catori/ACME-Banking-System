@@ -42,9 +42,9 @@ public abstract class Account {
     public void displayDetails(){
         System.out.println(
                 "These are your account details: " +
-                    "\nAccount Number: " + accountNumber +
-                    "\nSortCode: " + sortCode +
-                    "\nBalance: " + currentBalance
+                    "\nAccount Number: " + getAccountNumber() +
+                    "\nSortCode: " + getSortCode() +
+                    "\nBalance: £" + getBalance()
 
         );
     }
