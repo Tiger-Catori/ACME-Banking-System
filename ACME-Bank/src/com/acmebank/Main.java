@@ -9,9 +9,9 @@ public class Main {
 //        account1.displayDetails();
 
         Customer customer1 = Customer.create("Vanit", "Kashab");
-        customer1.addAccount(BusinessAccount.create(24.987));
-        customer1.addAccount(PersonalAccount.create(144.631));
-        customer1.addAccount(BusinessAccount.create(900.232));
+        customer1.addAccount(BusinessAccount.create(21.229));
+        customer1.addAccount(BusinessAccount.create(144.631));
+        customer1.addAccount(IsaAccount.create(30.232));
 
 
     }
