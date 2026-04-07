@@ -8,7 +8,7 @@ public class Customer {
     private String firstName;
     private String lastName;
     private String address;
-    List<Account> accountList = new ArrayList<>();
+    private List<Account> accountList = new ArrayList<>();
 
     public Customer(String firstName, String lastName) {
         // Customer ID is random 6 digit number
