@@ -1,24 +1,18 @@
 package com.acmebank;
 
-import com.acmebank.model.Account;
-import com.acmebank.model.BusinessAccount;
-import com.acmebank.model.IsaAccount;
-import com.acmebank.model.PersonalAccount;
+import com.acmebank.model.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        Account account1 = PersonalAccount.create(22.469);
-        Account account2 = PersonalAccount.create(446.7895);
-        Account isaAccount1 = IsaAccount.create(45.566);
-        Account businessAccount1 = BusinessAccount.create(33.218);
-        // System.out.println();
+//        BusinessAccount account1 = BusinessAccount.create(33.546);
 //        account1.displayDetails();
-//        System.out.println();
-//        account2.displayDetails();
-        isaAccount1.displayDetails();
-        System.out.println();
-        businessAccount1.displayDetails();
+
+        Customer customer1 = Customer.create("Vanit", "Kashab");
+        customer1.addAccount(BusinessAccount.create(24.987));
+        customer1.addAccount(PersonalAccount.create(144.631));
+        customer1.addAccount(BusinessAccount.create(900.232));
+
 
     }
 

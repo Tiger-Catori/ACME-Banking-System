@@ -10,26 +10,28 @@ public class Customer {
     private String address;
     List<Account> accountList = new ArrayList<>();
 
-    public Customer(int customerID, String firstName, String lastName) {
-        this.customerID = customerID;
+    public Customer(String firstName, String lastName) {
+        // Customer ID is random 6 digit number
+        this.customerID = (int) (Math.random() * 900_000) + 100_000;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
+    public static Customer create(String firstName, String lastName) {
+        return new Customer(firstName, lastName);
+    }
+
     public void addAccount(Account account) {
-        boolean hasIsaAccount = accountList.stream()
-                .anyMatch(obj -> obj instanceof IsaAccount);
+        Class<?> accountType = account.getClass();
 
-        boolean hasBusinessAccount = accountList.stream()
-                .anyMatch(obj -> obj instanceof BusinessAccount);
+        boolean exists = accountList.stream()
+                .anyMatch(obj -> obj.getClass() == accountType);
 
-        if (!hasIsaAccount) {
-            accountList.add(account);
-        } else if (!hasBusinessAccount) {
-            accountList.add(account);
-        } else {
-
+        if ((account instanceof IsaAccount || account instanceof BusinessAccount) && exists) {
+            System.out.println("You already have a " + accountType.getSimpleName());
         }
+
+        accountList.add(account);
     }
 
     // List<Account> accountList = new ArrayList<>();

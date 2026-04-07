@@ -39,7 +39,6 @@ public class IsaAccount extends Account {
 
         // Rounding to 2 dp with BigDecimal class
         BigDecimal roundedNumber = new BigDecimal(interest * balance).setScale(2, RoundingMode.HALF_UP);
-
         return roundedNumber.doubleValue();
     }
 }
