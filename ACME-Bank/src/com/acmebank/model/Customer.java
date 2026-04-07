@@ -34,12 +34,4 @@ public class Customer {
         accountList.add(account);
     }
 
-    // List<Account> accountList = new ArrayList<>();
-//    accountList.add(new PersonalAccount());
-//    accountList.add(new BusinessAccount());
-//    accountList.add(new IsaAccount());
-
-//    public void addNewAccount() {
-//        if (accountList.contains(typeof(IsaAccount)))
-//    }
 }
