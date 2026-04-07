@@ -6,9 +6,15 @@ import java.math.RoundingMode;
 public class IsaAccount extends Account {
     private static final int SORT_CODE = 606070;
 
-    public IsaAccount(double currentBalance) throws Exception {
+    public IsaAccount(double currentBalance) {
         super(currentBalance, SORT_CODE);
     }
+
+    // Also using factory pattern to create class.
+    public static IsaAccount create(double amount) {
+        return new IsaAccount(amount);
+    }
+
 
     @Override
     public double deposit(double amount) {
