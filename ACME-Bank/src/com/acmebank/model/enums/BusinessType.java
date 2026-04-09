@@ -6,27 +6,27 @@ public enum BusinessType {
     // Excluded types: ENTERPRISE, PLC, CHARITY, PUBLIC_SECTOR
 
     // Allowed types
-    SOLE_TRADER(true, "Sole Trader"),
-    LTD_COMPANY(true, "Limited Company"),
-    PARTNERSHIP(true, "Partnership"),
+    SOLE_TRADER("Sole Trader"),
+    LTD_COMPANY("Limited Company"),
+    PARTNERSHIP("Partnership");
 
     // Not allowed Types
-    CHARITY(false, "Charity"),
-    PLC(false, "Public Limited Company (PLC)"),
-    ENTERPRISE(false, "Enterprise"),
-    PUBLIC_SECTOR(false, "Public Sector Organisation");
+//    CHARITY(false, "Charity"),
+//    PLC(false, "Public Limited Company (PLC)"),
+//    ENTERPRISE(false, "Enterprise"),
+//    PUBLIC_SECTOR(false, "Public Sector Organisation");
 
-    private final boolean eligible;
+//    private final boolean eligible;
     private final String displayName;
 
-    BusinessType(boolean eligible, String displayName) {
-        this.eligible = eligible;
+    BusinessType(String displayName) {
+//        this.eligible = eligible;
         this.displayName = displayName;
     }
 
-    public boolean isEligible() {
-        return eligible;
-    }
+//    public boolean isEligible() {
+//        return eligible;
+//    }
 
     public String getDisplayName() {
         return displayName;
@@ -37,3 +37,4 @@ public enum BusinessType {
         return getDisplayName();
     }
 }
+
