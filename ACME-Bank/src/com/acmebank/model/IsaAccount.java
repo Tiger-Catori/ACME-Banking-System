@@ -4,10 +4,10 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class IsaAccount extends Account {
-    private static final int SORT_CODE = 606070;
+    // private static final int SORT_CODE = 606070;
 
     public IsaAccount(double currentBalance) {
-        super(currentBalance, SORT_CODE);
+        super(currentBalance, SortCode.from(60,60,70));
     }
 
     // Also using factory pattern to create class.
@@ -35,10 +35,10 @@ public class IsaAccount extends Account {
     @Override
     public double calculateInterest() {
         double balance = getBalance();
-        double interest = 1.0275; // 2.75%
-
-        // Rounding to 2 dp with BigDecimal class
-        BigDecimal roundedNumber = new BigDecimal(interest * balance).setScale(2, RoundingMode.HALF_UP);
-        return roundedNumber.doubleValue();
+        double interestRate = 0.0275; // 2.75% APR
+        double interest = balance * interestRate;
+        // Round to 2 decimal places
+        BigDecimal roundedInterest = new BigDecimal(interest).setScale(2, RoundingMode.HALF_UP);
+        return roundedInterest.doubleValue();
     }
 }

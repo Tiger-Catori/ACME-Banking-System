@@ -5,7 +5,7 @@ public class PersonalAccount extends Account {
     private static final int SORT_CODE = 606060;
 
     public PersonalAccount(double currentBalance) {
-        super(currentBalance, SORT_CODE);
+        super(currentBalance, SortCode.from(60,60,60));
     }
 
     // Using Factory Pattern to only create PersonalAccount objects

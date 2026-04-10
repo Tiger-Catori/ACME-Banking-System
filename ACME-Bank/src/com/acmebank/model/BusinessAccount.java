@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class BusinessAccount extends Account {
-    public static final int SORT_CODE = 607070;
+    // public static final int SORT_CODE = 607070;
     public static final double ANNUAL_FEE = 120.00;
 
     private final BusinessType businessType;
@@ -19,7 +19,7 @@ public class BusinessAccount extends Account {
     private double overDraft = 0.00;
 
     private BusinessAccount(double currentBalance, BusinessType businessType) {
-        super(currentBalance, SORT_CODE);
+        super(currentBalance, SortCode.from(60,70,70));
         this.businessType = businessType;
     }
 
