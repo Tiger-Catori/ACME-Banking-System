@@ -1,5 +1,7 @@
 package com.acmebank.model;
 
+import com.acmebank.infrastructure.generation.AccountNumberGenerator;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +18,7 @@ public abstract class Account {
 
     // Constructor
     public Account(double currentBalance, SortCode sortCode) {
-        // Setting random 8 digit number in the constructor.
-        int randomNum = (int) (Math.random() * 90_000_000) + 10_000_000;
-        this.accountNumber = new AccountNumber(String.valueOf(randomNum));
+        this.accountNumber = AccountNumberGenerator.generate();
         this.sortCode = sortCode;
         this.currentBalance = Math.round(currentBalance * 100.00) / 100.00;
         this.transactionHistory = new ArrayList<>();

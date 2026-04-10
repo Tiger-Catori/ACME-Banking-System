@@ -49,4 +49,9 @@ public final class AccountNumber {
         // Compares actual value of AccountNumber Objects
         return Objects.equals(value, that.value);
     }
+
+    @Override
+    public String toString() {
+        return getValue();
+    }
 }

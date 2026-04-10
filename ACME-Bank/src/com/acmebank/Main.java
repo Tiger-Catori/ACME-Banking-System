@@ -10,20 +10,18 @@ import java.util.Objects;
 public class Main {
 
     public static void main(String[] args) {
-//        BusinessAccount account1 = BusinessAccount.create(33.546);
-//        account1.displayDetails();
+        BusinessAccount account = BusinessAccount.create(233.239, BusinessType.PARTNERSHIP);
+        account.displayDetails();
+        System.out.println();
+        IsaAccount account2 = IsaAccount.create(447.356);
+        IsaAccount account3 = IsaAccount.create(99.234);
+        account2.displayDetails();
+        System.out.println(account2.calculateInterest());
 
-        Customer customer1 = Customer.create("Nathan", "Drake");
-        BusinessAccount businessAccount = BusinessAccount.create(2000.00,BusinessType.SOLE_TRADER);
-        businessAccount.activateOverdraft(5000.00);
-        businessAccount.issueChequeBook();
-        businessAccount.loanTaken(10000.00);
-        customer1.addAccount(businessAccount);
+        Customer customer1 = Customer.create("Peter", "Parker");
+        customer1.addAccount(account2);
+        customer1.addAccount(account3);
 
-        businessAccount.displayDetails();
-
-
-        customer1.addAccount(IsaAccount.create(30.232));
 
 
 
