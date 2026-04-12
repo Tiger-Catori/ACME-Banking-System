@@ -1,9 +1,6 @@
 package com.acmebank.model;
 
 public class PersonalAccount extends Account {
-
-    private static final int SORT_CODE = 606060;
-
     public PersonalAccount(double currentBalance) {
         super(currentBalance, SortCode.from(60,60,60));
     }
