@@ -21,6 +21,19 @@ public class Customer {
         return new Customer(firstName, lastName);
     }
 
+    // Getters.
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public int getCustomerID() {
+        return customerID;
+    }
+
     public void addAccount(Account account) {
         Class<?> accountType = account.getClass();
 

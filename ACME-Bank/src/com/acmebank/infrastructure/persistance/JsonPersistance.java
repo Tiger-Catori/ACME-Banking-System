@@ -19,7 +19,7 @@ public class JsonPersistance implements DataPersistance {
     private final ObjectMapper objectMapper;
 
     // Constructor
-    public JsonPersistance(String filePath, AuditLogger logger, ObjectMapper objectMapper) {
+    public JsonPersistance(String filePath, AuditLogger logger) {
         this.filePath = filePath;
         this.logger = logger;
         this.objectMapper = createConfiguredMapper();
@@ -29,10 +29,10 @@ public class JsonPersistance implements DataPersistance {
     private ObjectMapper createConfiguredMapper() {
         // Allow deserialisation only for account and its subclasses.
         PolymorphicTypeValidator ptv = BasicPolymorphicTypeValidator.builder()
-                .allowIfSubType("com.acme.model.Account")
-                .allowIfSubType("com.acme.model.PersonalAccount")
-                .allowIfSubType("com.acme.model.IsaAccount")
-                .allowIfSubType("com.acme.model.BusinessAccount")
+                .allowIfSubType("com.acmebank.model.Account")
+                .allowIfSubType("com.acmebank.model.PersonalAccount")
+                .allowIfSubType("com.acmebank.model.IsaAccount")
+                .allowIfSubType("com.acmebank.model.BusinessAccount")
                 .build();
 
         ObjectMapper mapper = new ObjectMapper();

@@ -37,6 +37,7 @@ public class FileAuditLogger implements AuditLogger {
     private String getTimestamp() {
         String timestampString = "[" + LocalDateTime.now().format(formatter) + "]";
         return timestampString;
+
     }
 
     @Override
@@ -63,5 +64,15 @@ public class FileAuditLogger implements AuditLogger {
     public void logEvent(String eventType, String details) {
         String logLine = getTimestamp() + " EVENT [" + eventType + "]: " + details;
         writeToFile(logLine);
+    }
+
+    public void clearLog() {
+        try (FileWriter fw = new FileWriter(filePath, false)) {
+            // false = overwrite mode
+            fw.write("");
+        } catch (IOException e) {
+            System.err.println("Failed to clear log file: " + filePath);
+            e.printStackTrace();
+        }
     }
 }
