@@ -4,6 +4,9 @@ import com.acmebank.infrastructure.logging.AuditLogger;
 import com.acmebank.model.Customer;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
+import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +17,29 @@ public class JsonPersistance implements DataPersistance {
     private final String filePath;
     private final AuditLogger logger;
     private final ObjectMapper objectMapper;
+
+    // Constructor
+    public JsonPersistance(String filePath, AuditLogger logger, ObjectMapper objectMapper) {
+        this.filePath = filePath;
+        this.logger = logger;
+        this.objectMapper = createConfiguredMapper();
+    }
+
+    // Config the ObjectMapper
+    private ObjectMapper createConfiguredMapper() {
+        // Allow deserialisation only for account and its subclasses.
+        PolymorphicTypeValidator ptv = BasicPolymorphicTypeValidator.builder()
+                .allowIfSubType("com.acme.model.Account")
+                .allowIfSubType("com.acme.model.PersonalAccount")
+                .allowIfSubType("com.acme.model.IsaAccount")
+                .allowIfSubType("com.acme.model.BusinessAccount")
+                .build();
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.activateDefaultTyping(ptv, ObjectMapper.DefaultTyping.NON_FINAL);
+        mapper.enable(SerializationFeature.INDENT_OUTPUT); // More readable
+        return mapper;
+    }
 
     @Override
     public void saveCustomers(List<Customer> customers) {
@@ -38,7 +64,7 @@ public class JsonPersistance implements DataPersistance {
     }
 
 
-    // Loads the list of customers form teh JSON file
+    // Loads the list of customers from the JSON file
     // If file does not exist, return an empty list.
     @Override
     public List<Customer> loadCustomers() {
