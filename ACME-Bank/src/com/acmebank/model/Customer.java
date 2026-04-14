@@ -2,6 +2,7 @@ package com.acmebank.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.acmebank.exceptions.DuplicateIsaException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,16 +40,16 @@ public class Customer {
         return customerID;
     }
 
-    public void addAccount(Account account) {
+    public void addAccount(Account account) throws DuplicateIsaException {
         Class<?> accountType = account.getClass();
 
         boolean exists = accountList.stream()
                 .anyMatch(obj -> obj.getClass() == accountType);
 
-        if ((account instanceof IsaAccount || account instanceof BusinessAccount) && exists) {
-            System.out.println("You already have a " + accountType.getSimpleName());
+        if (account instanceof IsaAccount && exists) {
+            throw new DuplicateIsaException(
+                    "ISA account already exists. Only one ISA is permitted per customer.");
         }
-
         accountList.add(account);
     }
 

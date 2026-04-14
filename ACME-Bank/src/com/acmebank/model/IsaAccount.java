@@ -2,6 +2,7 @@ package com.acmebank.model;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import com.acmebank.exceptions.InsufficientFundsException;
 
 public class IsaAccount extends Account {
     public IsaAccount(double currentBalance) {
@@ -23,9 +24,12 @@ public class IsaAccount extends Account {
     }
 
     @Override
-    public double withdraw(double amount) {
-        if (getBalance() - amount > 0) {
+    public double withdraw(double amount) throws InsufficientFundsException {
+        if (getBalance() - amount >= 0) {
             setBalance(getBalance() - amount);
+        } else {
+            throw new InsufficientFundsException("Insufficient Funds: £"+ String.format("%.2f", getBalance()) +
+                    ", Attempted: £" + String.format("%.2f", amount));
         }
         return getBalance();
     }

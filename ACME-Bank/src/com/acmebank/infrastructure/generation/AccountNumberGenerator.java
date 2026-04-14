@@ -1,6 +1,7 @@
 package com.acmebank.infrastructure.generation;
 
 import com.acmebank.model.AccountNumber;
+import com.acmebank.exceptions.DuplicateAccountNumberException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,8 +24,13 @@ public class AccountNumberGenerator {
 
     // registers an existing account number,
     // prevents future generation of the same number.
-    public static void registerExistingNumber(AccountNumber accountNumber) {
+    public static void registerExistingNumber(AccountNumber accountNumber) throws DuplicateAccountNumberException {
         if (accountNumber != null) {
+            if(usedNumbers.add(accountNumber.getValue())) {
+            throw new DuplicateAccountNumberException(
+                    "Account Number " + accountNumber.getValue() + " already exists."
+            );
+            }
             usedNumbers.add(accountNumber.getValue());
         }
     }
