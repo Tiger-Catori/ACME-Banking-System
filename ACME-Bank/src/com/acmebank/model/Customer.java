@@ -15,8 +15,8 @@ public class Customer {
     private List<Account> accountList = new ArrayList<>();
 
     @JsonCreator
-    public Customer(@JsonProperty String firstName,
-                    @JsonProperty String lastName) {
+    public Customer(@JsonProperty("name") String firstName,
+                    @JsonProperty("age") String lastName) {
         // Customer ID is random 6 digit number
         this.customerID = (int) (Math.random() * 900_000) + 100_000;
         this.firstName = firstName;
