@@ -2,9 +2,11 @@ package com.acmebank.model;
 import com.acmebank.exceptions.InvalidBusinessTypeException;
 import com.acmebank.model.enums.BusinessType;
 import com.acmebank.service.BusinessAccountValidator;
+import com.acmebank.exceptions.InsufficientFundsException;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 
 public class BusinessAccount extends Account {
     public static final double ANNUAL_FEE = 120.00;
@@ -14,6 +16,8 @@ public class BusinessAccount extends Account {
     private boolean overDraftAvailable = false;
     private boolean chequeBook = false;
     private boolean businessLoanActive = false;
+    private boolean feePaid = false;
+    private LocalDate feeDate = null;
 
     private double overDraft = 0.00;
 
@@ -42,7 +46,7 @@ public class BusinessAccount extends Account {
     }
 
     @Override
-    public double withdraw(double amount) {
+    public double withdraw(double amount) throws InsufficientFundsException {
         if (amount <= 0) {
             System.out.println("Could not withdraw negative amount");
             return getBalance();
@@ -58,10 +62,9 @@ public class BusinessAccount extends Account {
                         "Current balance: £" + String.format("%.2f", getBalance()));
             }
         } else {
-            System.out.println(
-                    "Withdrawal declined. This would exceed the " +
-                            (overDraftAvailable ? "overdraft limit of £" + String.format("%.2f", overDraft)
-                                    : "account balance (no overdraft facility is active)") + "."
+            throw new InsufficientFundsException(
+                    "Insufficient funds. Balance: £" + String.format("%.2f", getBalance()) +
+                            ", Attempted: £" + String.format("%.2f", amount)
             );
         }
         return getBalance();
@@ -135,6 +138,15 @@ public class BusinessAccount extends Account {
 
     }
 
+    public void applyFee(double amount) {
+        setBalance(new BigDecimal(getBalance() + amount)
+                .setScale(2, RoundingMode.HALF_UP).doubleValue());
+    }
+
+    public void setFeeDate(LocalDate date) {
+        this.feeDate = date;
+    }
+
 
     @Override
     public void displayDetails() {
@@ -174,6 +186,10 @@ public class BusinessAccount extends Account {
 
     public boolean isBusinessLoanActive() {
         return businessLoanActive;
+    }
+
+    public LocalDate getFeeDate() {
+        return feeDate;
     }
 
 

@@ -27,6 +27,8 @@ public final class Transaction {
         this.amount = amount;
         this.balanceAfter = balanceAfter;
     }
+
+
     // Getters
     public LocalDateTime getTimestamp() {
         return timestamp;
