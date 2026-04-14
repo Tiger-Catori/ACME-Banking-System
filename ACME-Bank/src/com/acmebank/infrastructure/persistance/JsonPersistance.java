@@ -28,15 +28,15 @@ public class JsonPersistance implements DataPersistance {
     // Config the ObjectMapper
     private ObjectMapper createConfiguredMapper() {
         // Allow deserialisation only for account and its subclasses.
-        PolymorphicTypeValidator ptv = BasicPolymorphicTypeValidator.builder()
-                .allowIfSubType("com.acmebank.model.Account")
-                .allowIfSubType("com.acmebank.model.PersonalAccount")
-                .allowIfSubType("com.acmebank.model.IsaAccount")
-                .allowIfSubType("com.acmebank.model.BusinessAccount")
-                .build();
+//        PolymorphicTypeValidator ptv = BasicPolymorphicTypeValidator.builder()
+//                .allowIfSubType("com.acmebank.model.Account")
+//                .allowIfSubType("com.acmebank.model.PersonalAccount")
+//                .allowIfSubType("com.acmebank.model.IsaAccount")
+//                .allowIfSubType("com.acmebank.model.BusinessAccount")
+//                .build();
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.activateDefaultTyping(ptv, ObjectMapper.DefaultTyping.NON_FINAL);
+//        mapper.activateDefaultTyping(ptv, ObjectMapper.DefaultTyping.NON_FINAL);
         mapper.enable(SerializationFeature.INDENT_OUTPUT); // More readable
         return mapper;
     }

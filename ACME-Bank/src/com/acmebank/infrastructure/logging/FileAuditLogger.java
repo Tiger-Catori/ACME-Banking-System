@@ -30,14 +30,12 @@ public class FileAuditLogger implements AuditLogger {
             System.err.println("Failed to write to log file " + filePath);
             e.printStackTrace(System.err);
         }
-
     }
 
     // Generate timestamp in format [yyyy-MM-dd HH:mm:ss]
     private String getTimestamp() {
         String timestampString = "[" + LocalDateTime.now().format(formatter) + "]";
         return timestampString;
-
     }
 
     @Override

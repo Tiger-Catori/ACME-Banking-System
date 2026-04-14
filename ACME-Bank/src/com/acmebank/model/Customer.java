@@ -1,5 +1,8 @@
 package com.acmebank.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +13,9 @@ public class Customer {
     private String address;
     private List<Account> accountList = new ArrayList<>();
 
-    public Customer(String firstName, String lastName) {
+    @JsonCreator
+    public Customer(@JsonProperty String firstName,
+                    @JsonProperty String lastName) {
         // Customer ID is random 6 digit number
         this.customerID = (int) (Math.random() * 900_000) + 100_000;
         this.firstName = firstName;

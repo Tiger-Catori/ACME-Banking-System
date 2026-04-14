@@ -31,7 +31,6 @@ public class Main {
         if (customers.isEmpty()) {
             logger.log("No existing data found. Creating sample customers...");
 
-
             // Customer 1: John Doe with a Personal Account
             Customer john = Customer.create("John", "Doe");
             PersonalAccount personalAcccount = PersonalAccount.create(2000.367);
