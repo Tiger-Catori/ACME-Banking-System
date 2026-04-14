@@ -1,9 +1,21 @@
 package com.acmebank.model;
 
 import com.acmebank.infrastructure.generation.AccountNumberGenerator;
-
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import java.util.ArrayList;
 import java.util.List;
+
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.CLASS,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "@class")
+
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = PersonalAccount.class),
+        @JsonSubTypes.Type(value = IsaAccount.class),
+        @JsonSubTypes.Type(value = BusinessAccount.class)
+})
 
 public abstract class Account {
     // The blueprint for all bank accounts.

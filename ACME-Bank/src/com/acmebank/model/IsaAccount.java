@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class IsaAccount extends Account {
-    // private static final int SORT_CODE = 606070;
-
     public IsaAccount(double currentBalance) {
         super(currentBalance, SortCode.from(60,60,70));
     }

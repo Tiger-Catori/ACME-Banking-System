@@ -1,12 +1,17 @@
 package com.acmebank.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import java.util.Objects;
 
 // Immutable value object representing an 8-digit account number.
 public final class AccountNumber {
     private final String value;
 
-    public AccountNumber(String value) {
+    @JsonCreator
+    public AccountNumber(@JsonProperty String value) {
         if (value == null) {
             throw new IllegalArgumentException("An account number cannot be null");
         }
@@ -27,6 +32,7 @@ public final class AccountNumber {
         return new AccountNumber(value);
     }
 
+    @JsonValue
     public String getValue() {
         return value;
     }

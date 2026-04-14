@@ -7,7 +7,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class BusinessAccount extends Account {
-    // public static final int SORT_CODE = 607070;
     public static final double ANNUAL_FEE = 120.00;
 
     private final BusinessType businessType;
