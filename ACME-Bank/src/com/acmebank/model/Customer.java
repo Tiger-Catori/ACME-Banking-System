@@ -28,6 +28,10 @@ public class Customer {
     }
 
     // Getters.
+    public List<Account> getAccounts() {
+        return new ArrayList<>(accountList);
+    }
+
     public String getFirstName() {
         return firstName;
     }

@@ -13,7 +13,6 @@ public class AccountNumberGenerator {
     // returns AccountNumber object with that number.
     public static AccountNumber generate() {
         String randomNum;
-
         do {
             int num = (int) (Math.random() * 90_000_000) + 10_000_000;
             randomNum = String.valueOf(num);
@@ -26,12 +25,9 @@ public class AccountNumberGenerator {
     // prevents future generation of the same number.
     public static void registerExistingNumber(AccountNumber accountNumber) throws DuplicateAccountNumberException {
         if (accountNumber != null) {
-            if(usedNumbers.add(accountNumber.getValue())) {
-            throw new DuplicateAccountNumberException(
-                    "Account Number " + accountNumber.getValue() + " already exists."
-            );
-            }
-            usedNumbers.add(accountNumber.getValue());
+           if (!usedNumbers.add(accountNumber.getValue())) {
+               throw new DuplicateAccountNumberException("Account Number " + accountNumber.getValue() + " already exists.");
+           }
         }
     }
 

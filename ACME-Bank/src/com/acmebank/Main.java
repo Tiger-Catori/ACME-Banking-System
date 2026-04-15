@@ -72,6 +72,7 @@ public class Main {
         logger.log("Saved " + customers.size() + " customer to data/customers.json");
 
         logger.log("Banking system finished.");
+        logger.log(" ");
     }
 
 }
