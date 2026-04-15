@@ -8,8 +8,10 @@ import com.acmebank.infrastructure.persistance.JsonPersistance;
 import com.acmebank.model.*;
 import com.acmebank.model.enums.BusinessType;
 import com.acmebank.service.BusinessAccountValidator;
+import com.acmebank.service.InterestCalculator;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
@@ -45,7 +47,10 @@ public class Main {
             // Customer 2: Jane Smith with an ISA Account
             Customer trevor = Customer.create("Trevor", "Smith");
             IsaAccount isaAccount = IsaAccount.create(5060.345);
+            InterestCalculator calculator = new InterestCalculator();
+            BigDecimal interest = calculator.calculateInterest(isaAccount);
             trevor.addAccount(isaAccount);
+            isaAccount.deposit(interest.doubleValue());
             logger.log("Created ISA Account for Jane Smith: " + isaAccount.getAccountNumber());
 
             // Customer 3: ACME Corp with a Business Account.
@@ -69,7 +74,7 @@ public class Main {
 
         // 5. Save all customer to the JSON file
         persistance.saveCustomers(customers);
-        logger.log("Saved " + customers.size() + " customer to data/customers.json");
+        logger.log("Saved " + customers.size() + " customer to data/customer.json");
 
         logger.log("Banking system finished.");
     }
