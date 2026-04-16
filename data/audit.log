@@ -1,0 +1,40 @@
+[2026-04-15 14:25:46] INFO: Created directory: D:\IdeaProjects\Java-Group-Project\ACME-Banking-System\data
+[2026-04-15 14:25:46] INFO: Successfully saved 3 customers to data/customer.json
+[2026-04-15 14:25:46] INFO: Saved 3 customer to data/customers.json
+[2026-04-15 14:25:46] INFO: Banking system finished.
+[2026-04-15 14:26:17] INFO: Banking system starting...
+[2026-04-15 14:26:18] INFO: Successfully loaded 3 customers from data/customer.json
+[2026-04-15 14:26:18] INFO: Loaded 3 existing customers.
+[2026-04-15 14:26:18] INFO: Successfully saved 3 customers to data/customer.json
+[2026-04-15 14:26:18] INFO: Saved 3 customer to data/customers.json
+[2026-04-15 14:26:18] INFO: Banking system finished.
+[2026-04-15 14:27:12] INFO: Banking system starting...
+[2026-04-15 14:27:12] INFO: Successfully loaded 3 customers from data/customer.json
+[2026-04-15 14:27:12] INFO: Loaded 3 existing customers.
+[2026-04-15 14:27:12] INFO: Successfully saved 3 customers to data/customer.json
+[2026-04-15 14:27:12] INFO: Saved 3 customer to data/customers.json
+[2026-04-15 14:27:12] INFO: Banking system finished.
+[2026-04-15 14:27:31] INFO: Banking system starting...
+[2026-04-15 14:27:31] INFO: Successfully loaded 3 customers from data/customer.json
+[2026-04-15 14:27:31] INFO: Loaded 3 existing customers.
+[2026-04-15 14:27:31] INFO: Successfully saved 3 customers to data/customer.json
+[2026-04-15 14:27:31] INFO: Saved 3 customer to data/customers.json
+[2026-04-15 14:27:31] INFO: Banking system finished.
+[2026-04-15 14:27:40] INFO: Banking system starting...
+[2026-04-15 14:27:40] INFO: Successfully loaded 3 customers from data/customer.json
+[2026-04-15 14:27:40] INFO: Loaded 3 existing customers.
+[2026-04-15 14:27:40] INFO: Successfully saved 3 customers to data/customer.json
+[2026-04-15 14:27:40] INFO: Saved 3 customer to data/customers.json
+[2026-04-15 14:27:40] INFO: Banking system finished.
+[2026-04-15 14:27:47] INFO: Banking system starting...
+[2026-04-15 14:27:48] INFO: Successfully loaded 3 customers from data/customer.json
+[2026-04-15 14:27:48] INFO: Loaded 3 existing customers.
+[2026-04-15 14:27:48] INFO: Successfully saved 3 customers to data/customer.json
+[2026-04-15 14:27:48] INFO: Saved 3 customer to data/customers.json
+[2026-04-15 14:27:48] INFO: Banking system finished.
+[2026-04-15 14:36:39] INFO: Banking system starting...
+[2026-04-15 14:36:39] INFO: Successfully loaded 3 customers from data/customer.json
+[2026-04-15 14:36:39] INFO: Loaded 3 existing customers.
+[2026-04-15 14:36:40] INFO: Successfully saved 3 customers to data/customer.json
+[2026-04-15 14:36:40] INFO: Saved 3 customer to data/customer.json
+[2026-04-15 14:36:40] INFO: Banking system finished.
