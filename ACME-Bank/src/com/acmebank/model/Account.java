@@ -38,7 +38,7 @@ public abstract class Account {
 
     // Abstract Methods
     public abstract double deposit(double amount);
-    public abstract double withdraw(double amount);
+    public abstract double withdraw (double amount);
     public abstract double calculateInterest();
 
     // Concrete Methods (Getters)

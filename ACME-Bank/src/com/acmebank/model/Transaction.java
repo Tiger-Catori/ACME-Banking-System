@@ -7,13 +7,13 @@ import java.time.LocalDateTime;
 
 
 public final class Transaction {
-    private TransactionType  transactionType;
     private LocalDateTime timestamp;
+    private TransactionType  transactionType;
     private String description;
-    private double balanceAfter;
+    private double amount;
     // amount is stored as a positive number.
     // The type tells you if it was added or subtracted.
-    private double amount;
+    private double balanceAfter;
 
     public Transaction(
             LocalDateTime timestamp,
@@ -26,6 +26,11 @@ public final class Transaction {
         this.description = description;
         this.amount = amount;
         this.balanceAfter = balanceAfter;
+    }
+
+    // Factory method object creation.
+    public static Transaction create(LocalDateTime timestamp, TransactionType transactionType, String description, double amount, double balanceAfter) {
+        return new Transaction(timestamp, transactionType, description, amount, balanceAfter);
     }
 
 
