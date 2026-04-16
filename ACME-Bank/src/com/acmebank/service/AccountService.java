@@ -37,7 +37,6 @@ public class AccountService {
     /**
      * Creates a PERSONAL or ISA account.
      * For PERSONAL, uses PersonalAccount.create() factory to enforce £1 minimum.
-     * For ISA, assumes a constructor PersonalAccount? Actually IsaAccount likely has a constructor.
      */
     public Account createAccount(Customer customer, AccountType accountType, double openingBalance) {
         validateOpeningBalance(accountType, openingBalance);
@@ -54,7 +53,7 @@ public class AccountService {
                 break;
             case ISA:
                 // Assuming IsaAccount has a constructor (double, SortCode) – adjust if different
-                SortCode isaSortCode = getSortCodeForType(AccountType.ISA);
+                // SortCode isaSortCode = getSortCodeForType(AccountType.ISA);
                 account = IsaAccount.create(openingBalance);
                 break;
             default:
