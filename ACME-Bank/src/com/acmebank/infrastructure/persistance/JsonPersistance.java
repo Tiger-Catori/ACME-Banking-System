@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
 import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,17 +28,15 @@ public class JsonPersistance implements DataPersistance {
 
     // Config the ObjectMapper
     private ObjectMapper createConfiguredMapper() {
-        // Allow deserialisation only for account and its subclasses.
-//        PolymorphicTypeValidator ptv = BasicPolymorphicTypeValidator.builder()
-//                .allowIfSubType("com.acmebank.model.Account")
-//                .allowIfSubType("com.acmebank.model.PersonalAccount")
-//                .allowIfSubType("com.acmebank.model.IsaAccount")
-//                .allowIfSubType("com.acmebank.model.BusinessAccount")
-//                .build();
-
         ObjectMapper mapper = new ObjectMapper();
-//        mapper.activateDefaultTyping(ptv, ObjectMapper.DefaultTyping.NON_FINAL);
-        mapper.enable(SerializationFeature.INDENT_OUTPUT); // More readable
+
+        // ✅ ADD THIS (fixes your crash)
+        mapper.registerModule(new JavaTimeModule());
+
+        // ✅ Optional but recommended (readable dates instead of timestamps)
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
         return mapper;
     }
 
