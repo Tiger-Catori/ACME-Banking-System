@@ -28,11 +28,12 @@ public class PersonalAccount extends Account {
 
     @Override
     public double withdraw(double amount) {
-        // Set an overdraft of £500.
-        int overdraft = 500;
+        // Set an overdraft of £100.
+        int overdraft = 100;
         if (getBalance() - amount < -overdraft) throw new InsufficientFundsException( "Insufficient funds. Balance: £"
                 + String.format("%.2f", getBalance()) + ", Attempted: £" + String.format("%.2f", amount)){
         };
+        setBalance(getBalance() - amount);
         return getBalance();
     }
 

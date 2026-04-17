@@ -1,56 +1,50 @@
 [ {
-  "customerID" : 479257,
+  "customerID" : 910362,
   "firstName" : "John",
   "lastName" : "Doe",
   "accounts" : [ {
     "@class" : "com.acmebank.model.PersonalAccount",
-    "accountNumber" : "50318478",
+    "accountNumber" : "21487691",
     "sortCode" : {
       "part1" : 60,
       "part2" : 60,
       "part3" : 60
     },
     "transactionHistory" : [ {
-      "timestamp" : "2026-04-17T17:39:31.109726107",
+      "timestamp" : "2026-04-17T21:53:15.138944966",
       "description" : "Cash Deposit",
       "amount" : 46.0,
       "balanceAfter" : 146.81,
       "type" : "DEPOSIT"
     }, {
-      "timestamp" : "2026-04-17T17:39:31.189874887",
-      "description" : "Transfer to account 20952320",
+      "timestamp" : "2026-04-17T21:53:15.245399417",
+      "description" : "Transfer to account 47482970",
       "amount" : 25.0,
-      "balanceAfter" : 146.81,
+      "balanceAfter" : 121.81,
       "type" : "TRANSFER"
     } ],
-    "balance" : 146.81
+    "balance" : 121.81
   }, {
     "@class" : "com.acmebank.model.PersonalAccount",
-    "accountNumber" : "20952320",
+    "accountNumber" : "47482970",
     "sortCode" : {
       "part1" : 60,
       "part2" : 60,
       "part3" : 60
     },
     "transactionHistory" : [ {
-      "timestamp" : "2026-04-17T17:39:31.188142897",
+      "timestamp" : "2026-04-17T21:53:15.243010705",
       "description" : "Cash Withdrawal",
       "amount" : 20.0,
-      "balanceAfter" : 50.67,
+      "balanceAfter" : 30.67,
       "type" : "WITHDRAWAL"
     }, {
-      "timestamp" : "2026-04-17T17:39:31.18933623",
-      "description" : "Cash Withdrawal",
-      "amount" : 200.0,
-      "balanceAfter" : 50.67,
-      "type" : "WITHDRAWAL"
-    }, {
-      "timestamp" : "2026-04-17T17:39:31.189925532",
-      "description" : "Transfer from account 50318478",
+      "timestamp" : "2026-04-17T21:53:15.245458949",
+      "description" : "Transfer from account 21487691",
       "amount" : 25.0,
-      "balanceAfter" : 75.67,
+      "balanceAfter" : 55.67,
       "type" : "TRANSFER"
     } ],
-    "balance" : 75.67
+    "balance" : 55.67
   } ]
 } ]
