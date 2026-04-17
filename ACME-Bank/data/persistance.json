@@ -1,0 +1,56 @@
+[ {
+  "customerID" : 587528,
+  "firstName" : "John",
+  "lastName" : "Doe",
+  "accounts" : [ {
+    "@class" : "com.acmebank.model.PersonalAccount",
+    "accountNumber" : "20598495",
+    "sortCode" : {
+      "part1" : 60,
+      "part2" : 60,
+      "part3" : 60
+    },
+    "transactionHistory" : [ {
+      "timestamp" : "2026-04-17T16:30:13.733150205",
+      "description" : "Cash Deposit",
+      "amount" : 46.0,
+      "balanceAfter" : 146.81,
+      "type" : "DEPOSIT"
+    }, {
+      "timestamp" : "2026-04-17T16:30:13.873342638",
+      "description" : "Transfer to account 49033971",
+      "amount" : 25.0,
+      "balanceAfter" : 146.81,
+      "type" : "TRANSFER"
+    } ],
+    "balance" : 146.81
+  }, {
+    "@class" : "com.acmebank.model.PersonalAccount",
+    "accountNumber" : "49033971",
+    "sortCode" : {
+      "part1" : 60,
+      "part2" : 60,
+      "part3" : 60
+    },
+    "transactionHistory" : [ {
+      "timestamp" : "2026-04-17T16:30:13.869674999",
+      "description" : "Cash Withdrawal",
+      "amount" : 20.0,
+      "balanceAfter" : 50.67,
+      "type" : "WITHDRAWAL"
+    }, {
+      "timestamp" : "2026-04-17T16:30:13.871960584",
+      "description" : "Cash Withdrawal",
+      "amount" : 200.0,
+      "balanceAfter" : 50.67,
+      "type" : "WITHDRAWAL"
+    }, {
+      "timestamp" : "2026-04-17T16:30:13.873409854",
+      "description" : "Transfer from account 20598495",
+      "amount" : 25.0,
+      "balanceAfter" : 75.67,
+      "type" : "TRANSFER"
+    } ],
+    "balance" : 75.67
+  } ]
+} ]

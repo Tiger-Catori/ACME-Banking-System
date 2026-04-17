@@ -1,6 +1,9 @@
 package com.acmebank;
 
+import com.acmebank.exceptions.InsufficientFundsException;
+import com.acmebank.exceptions.InvalidAmountException;
 import com.acmebank.exceptions.InvalidBusinessTypeException;
+import com.acmebank.infrastructure.generation.AccountNumberGenerator;
 import com.acmebank.infrastructure.logging.AuditLogger;
 import com.acmebank.infrastructure.logging.FileAuditLogger;
 import com.acmebank.infrastructure.persistance.DataPersistance;
@@ -8,75 +11,118 @@ import com.acmebank.infrastructure.persistance.JsonPersistance;
 import com.acmebank.model.*;
 import com.acmebank.model.enums.BusinessType;
 import com.acmebank.service.BusinessAccountValidator;
-import com.acmebank.service.InterestCalculator;
+import com.acmebank.service.TransactionService;
 
 import java.io.IOException;
-import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Main {
 
     public static void main(String[] args) {
-        // Create the logger (Log file in data/audit.log)
-        AuditLogger logger = new FileAuditLogger("data/audit.log");
-        logger.log("Banking system starting...");
+        System.out.println("--- Testing Transaction ---");
 
-        // 2. Setting up persistance (JSON file in data/customers.json)
-        DataPersistance persistance = new JsonPersistance("data/customer.json", logger);
+        //\ 1. Setup dependencies
+        AuditLogger logger = new FileAuditLogger("data/test.log");
+        DataPersistance persistance = new JsonPersistance("data/persistance.json", logger);
+        List<Customer> allCustomers = new ArrayList<>();
 
-        // 3. Load existing customers (if any)
-        List<Customer> customers = persistance.loadCustomers();
-        logger.log("Loaded " + customers.size() + " existing customers.");
+        // 2. Creating a test customer
+        Customer customer = Customer.create("John", "Doe");
+        System.out.println("Created customer: " + customer.getFirstName() + " "
+                + customer.getLastName() +
+                " (ID: " + customer.getCustomerID() + ")");
 
-        // 4. If no data exists, create sample customers & accounts
-        if (customers.isEmpty()) {
-            logger.log("No existing data found. Creating sample customers...");
+        // 3. Create two personal accounts
+        PersonalAccount account1 = PersonalAccount.create(100.809);
+        PersonalAccount account2 = PersonalAccount.create(50.665);
 
-            // Customer 1: John Doe with a Personal Account
-            Customer john = Customer.create("John", "Doe");
-            PersonalAccount personalAcccount = PersonalAccount.create(2000.367);
-            if (personalAcccount != null) {
-                john.addAccount(personalAcccount);
-                logger.log("Created Personal Account for John Doe: " + personalAcccount.getAccountNumber());
-
-            } else {
-                logger.logWarning("Failed to create Personal Account for John Doe (balance below £1.)");
-            }
-
-            // Customer 2: Jane Smith with an ISA Account
-            Customer trevor = Customer.create("Trevor", "Smith");
-            IsaAccount isaAccount = IsaAccount.create(5060.345);
-            InterestCalculator calculator = new InterestCalculator();
-            BigDecimal interest = calculator.calculateInterest(isaAccount);
-            trevor.addAccount(isaAccount);
-            isaAccount.deposit(interest.doubleValue());
-            logger.log("Created ISA Account for Jane Smith: " + isaAccount.getAccountNumber());
-
-            // Customer 3: ACME Corp with a Business Account.
-            Customer acme = Customer.create("ACME", "Corp");
-            BusinessType eligibleType = BusinessType.SOLE_TRADER;
-
-            BusinessAccount businessAccount = BusinessAccount.create(2750.199, eligibleType);
-            if (businessAccount != null) {
-                acme.addAccount(businessAccount);
-                // Applying annual fee. (£120)
-                businessAccount.applyYearlyFee();
-                logger.log("Created Business Account for Acme Corp: " + businessAccount.getAccountNumber());
-            } else {
-                logger.logWarning("Failed to create Business Account for Acme Corp (ineligible business type)");
-            }
-            // Add all customer to the list
-            customers.add(john);
-            customers.add(trevor);
-            customers.add(acme);
+        if (account1 == null || account2 == null) {
+            System.err.println("Failed to create accounts (minimum £1 needed). Exiting");
         }
 
-        // 5. Save all customer to the JSON file
-        persistance.saveCustomers(customers);
-        logger.log("Saved " + customers.size() + " customer to data/customer.json");
+        // 4. Add accounts to customer & register their numbers with generator
+        try {
+            customer.addAccount(account1);
+            customer.addAccount(account2);
+            AccountNumberGenerator.registerExistingNumber(account1.getAccountNumber());
+            AccountNumberGenerator.registerExistingNumber(account2.getAccountNumber());
+        } catch (Exception e) {
+            System.err.println("Error adding accounts: " + e.getMessage());
+        }
+        allCustomers.add(customer);
 
-        logger.log("Banking system finished.");
+        // 5. Creating TransactionService
+        TransactionService txService = TransactionService.create(logger, persistance, allCustomers);
+
+        // 6. Displaying initial balances
+        System.out.println("\n--- Initial Balances ---");
+        displayBalance(account1);
+        displayBalance(account2);
+
+        //\ 7. Test deposit
+        System.out.println("\n--- Deposit £46 into Account 1 ---");
+        try {
+            txService.deposit(account1, 46.0);
+            System.out.println("Deposit successful. New balance: £" + account1.getBalance());
+        } catch (InvalidAmountException e) {
+            System.err.println("Deposit failed: " + e.getMessage());
+        }
+
+        // 8. Testing withdrawal (valid)
+        System.out.println("\n--- Withdraw £20 from Account 2 ---");
+        try {
+            txService.withdraw(account2, 20.0);
+            System.out.println("Withdrawal successful. New balance: £" + account2.getBalance());
+        } catch (InvalidAmountException | InsufficientFundsException e) {
+            System.out.println("Withdrawal failed: " + e.getMessage());
+        }
+
+        // 9. Test withdrawal (insufficient funds)
+        System.out.println("\n--- Withdraw £200 from Account2 (should fail) ---");
+        try {
+            txService.withdraw(account2, 200.0);
+            System.out.println("Withdrawal successful. New balance: £" + account2.getBalance());
+        } catch (InvalidAmountException | InsufficientFundsException e) {
+            System.err.println("Withdrawal failed (expected) " + e.getMessage());
+        }
+
+        // 10. Testing transfer
+        System.out.println("\n--- Transfer £25 from Account 1 to Account 2 ---");
+        try {
+            txService.transfer(account1, account2, 25.00);
+            System.out.println("Transfer successful.");
+        } catch (Exception e) {
+            System.err.println("Transfer failed: " + e.getMessage());
+        }
+
+        // 11. Final balances
+        System.out.println("\n--- Final balances ---");
+        displayBalance(account1);
+        displayBalance(account2);
+
+        // 12. Showing transaction history for account1
+        System.out.println("\n--- Transaction History for Account 1 ---");
+        for (Transaction t : account1.getTransactionHistory()) {
+            System.out.println(t);
+            System.out.println("---------------------------");
+        }
+
+        // 13. Showing transaction history for account2
+        System.out.println("\n--- Transaction History for Account 2 ---");
+        for (Transaction t : account2.getTransactionHistory()) {
+            System.out.println(t);
+            System.out.println("---------------------------");
+        }
+
+        System.out.println("\nTest completed. Check data/test.log and data/testCustomers.json");
+
     }
 
+
+    private static void displayBalance(Account account) {
+        System.out.println("Account " + account.getAccountNumber().getValue() +
+                " balance: £" + String.format("%.2f", account.getBalance()));
+    }
 }

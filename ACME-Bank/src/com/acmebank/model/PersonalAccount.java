@@ -30,7 +30,7 @@ public class PersonalAccount extends Account {
     public double withdraw(double amount) {
         // Set an overdraft of £500.
         int overdraft = 500;
-        if (getBalance() - amount >= -overdraft) throw new InsufficientFundsException( "Insufficient funds. Balance: £"
+        if (getBalance() - amount < -overdraft) throw new InsufficientFundsException( "Insufficient funds. Balance: £"
                 + String.format("%.2f", getBalance()) + ", Attempted: £" + String.format("%.2f", amount)){
         };
         return getBalance();
