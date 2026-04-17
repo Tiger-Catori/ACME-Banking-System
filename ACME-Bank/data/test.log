@@ -1,0 +1,16 @@
+[2026-04-17 16:46:02] INFO: Deposited £46.0 into account 83722914
+[2026-04-17 16:46:02] INFO: Successfully saved 1 customers to data/persistance.json
+[2026-04-17 16:46:02] INFO: Withdrew £20.0 into account 58207358
+[2026-04-17 16:46:02] INFO: Successfully saved 1 customers to data/persistance.json
+[2026-04-17 16:46:02] INFO: Withdrew £200.0 into account 58207358
+[2026-04-17 16:46:02] INFO: Successfully saved 1 customers to data/persistance.json
+[2026-04-17 16:46:02] INFO: Transferred £25.0 from account 83722914 to account 58207358
+[2026-04-17 16:46:02] INFO: Successfully saved 1 customers to data/persistance.json
+[2026-04-17 17:39:31] INFO: Deposited £46.0 into account 50318478
+[2026-04-17 17:39:31] INFO: Successfully saved 1 customers to data/testPersistance.json
+[2026-04-17 17:39:31] INFO: Withdrew £20.0 into account 20952320
+[2026-04-17 17:39:31] INFO: Successfully saved 1 customers to data/testPersistance.json
+[2026-04-17 17:39:31] INFO: Withdrew £200.0 into account 20952320
+[2026-04-17 17:39:31] INFO: Successfully saved 1 customers to data/testPersistance.json
+[2026-04-17 17:39:31] INFO: Transferred £25.0 from account 50318478 to account 20952320
+[2026-04-17 17:39:31] INFO: Successfully saved 1 customers to data/testPersistance.json

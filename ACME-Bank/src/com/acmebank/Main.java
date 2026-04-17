@@ -25,7 +25,7 @@ public class Main {
 
         //\ 1. Setup dependencies
         AuditLogger logger = new FileAuditLogger("data/test.log");
-        DataPersistance persistance = new JsonPersistance("data/persistance.json", logger);
+        DataPersistance persistance = new JsonPersistance("data/testPersistance.json", logger);
         List<Customer> allCustomers = new ArrayList<>();
 
         // 2. Creating a test customer
@@ -116,7 +116,7 @@ public class Main {
             System.out.println("---------------------------");
         }
 
-        System.out.println("\nTest completed. Check data/test.log and data/testCustomers.json");
+        System.out.println("\nTest completed. Check data/test.log and data/testPersistance.json");
 
     }
 

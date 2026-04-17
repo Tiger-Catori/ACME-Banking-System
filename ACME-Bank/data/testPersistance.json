@@ -1,24 +1,24 @@
 [ {
-  "customerID" : 587528,
+  "customerID" : 479257,
   "firstName" : "John",
   "lastName" : "Doe",
   "accounts" : [ {
     "@class" : "com.acmebank.model.PersonalAccount",
-    "accountNumber" : "20598495",
+    "accountNumber" : "50318478",
     "sortCode" : {
       "part1" : 60,
       "part2" : 60,
       "part3" : 60
     },
     "transactionHistory" : [ {
-      "timestamp" : "2026-04-17T16:30:13.733150205",
+      "timestamp" : "2026-04-17T17:39:31.109726107",
       "description" : "Cash Deposit",
       "amount" : 46.0,
       "balanceAfter" : 146.81,
       "type" : "DEPOSIT"
     }, {
-      "timestamp" : "2026-04-17T16:30:13.873342638",
-      "description" : "Transfer to account 49033971",
+      "timestamp" : "2026-04-17T17:39:31.189874887",
+      "description" : "Transfer to account 20952320",
       "amount" : 25.0,
       "balanceAfter" : 146.81,
       "type" : "TRANSFER"
@@ -26,27 +26,27 @@
     "balance" : 146.81
   }, {
     "@class" : "com.acmebank.model.PersonalAccount",
-    "accountNumber" : "49033971",
+    "accountNumber" : "20952320",
     "sortCode" : {
       "part1" : 60,
       "part2" : 60,
       "part3" : 60
     },
     "transactionHistory" : [ {
-      "timestamp" : "2026-04-17T16:30:13.869674999",
+      "timestamp" : "2026-04-17T17:39:31.188142897",
       "description" : "Cash Withdrawal",
       "amount" : 20.0,
       "balanceAfter" : 50.67,
       "type" : "WITHDRAWAL"
     }, {
-      "timestamp" : "2026-04-17T16:30:13.871960584",
+      "timestamp" : "2026-04-17T17:39:31.18933623",
       "description" : "Cash Withdrawal",
       "amount" : 200.0,
       "balanceAfter" : 50.67,
       "type" : "WITHDRAWAL"
     }, {
-      "timestamp" : "2026-04-17T16:30:13.873409854",
-      "description" : "Transfer from account 20598495",
+      "timestamp" : "2026-04-17T17:39:31.189925532",
+      "description" : "Transfer from account 50318478",
       "amount" : 25.0,
       "balanceAfter" : 75.67,
       "type" : "TRANSFER"
