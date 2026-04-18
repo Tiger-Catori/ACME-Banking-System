@@ -1,8 +1,10 @@
 package com.acmebank.cli.validators;
 
 import com.acmebank.exceptions.InvalidAmountException;
+import com.acmebank.exceptions.InvalidBusinessTypeException;
 import com.acmebank.model.Account;
 import com.acmebank.model.enums.AccountType;
+import com.acmebank.model.enums.BusinessType;
 
 import java.util.Locale;
 
@@ -30,6 +32,16 @@ public class ConsoleInputValidator {
                 return AccountType.BUSINESS;
             }
             default -> throw new IllegalArgumentException("Invalid account type. Valid types: PERSONAL, ISA, BUSINESS");
+        }
+    }
+
+    public static BusinessType validateBusinessType(String input) {
+        String stringInput = input.trim().toUpperCase().replace(" ", "_");
+        try {
+            return BusinessType.valueOf(stringInput);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid business type. Valid types: " +
+                    "SOLE_TRADER, PARTNERSHIP, LIMITED_COMPANY");
         }
     }
 
