@@ -11,6 +11,7 @@ import com.acmebank.infrastructure.persistance.JsonPersistance;
 import com.acmebank.model.*;
 import com.acmebank.model.enums.BusinessType;
 import com.acmebank.service.BusinessAccountValidator;
+import com.acmebank.service.FeeService;
 import com.acmebank.service.TransactionService;
 
 import java.io.IOException;
@@ -117,6 +118,31 @@ public class Main {
         }
 
         System.out.println("\nTest completed. Check data/test.log and data/testPersistance.json");
+
+        BusinessAccount businessAccount = BusinessAccount.create(2000.00, BusinessType.SOLE_TRADER);
+
+        FeeService feeService = new FeeService();
+
+        // Test 1 — should apply fee successfully
+        System.out.println("--- Test 1: Apply fee ---");
+        boolean result = feeService.applyAnnualFee(businessAccount);
+        System.out.println("Fee applied: " + result);
+        System.out.println("Balance after: £" + String.format("%.2f", businessAccount.getBalance()));
+
+        // Test 2 — should be rejected (already applied this year)
+        System.out.println("\n--- Test 2: Apply fee again same year ---");
+        boolean result2 = feeService.applyAnnualFee(businessAccount);
+        System.out.println("Fee applied: " + result2);
+
+        // Test 3 — insufficient balance, no overdraft
+        System.out.println("\n--- Test 3: Insufficient balance ---");
+        BusinessAccount poorAccount = BusinessAccount.create(50.00, BusinessType.SOLE_TRADER);
+        if (poorAccount != null) {
+            boolean result3 = feeService.applyAnnualFee(poorAccount);
+            System.out.println("Fee applied: " + result3);
+        } else {
+            System.out.println("Could not create account with £50 — below minimum balance.");
+        }
 
     }
 
