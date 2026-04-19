@@ -1,19 +1,23 @@
 package com.acmebank.cli.menus;
 import com.acmebank.cli.MenuController;
-import com.acmebank.cli.handlers.HelpSystem;
 import com.acmebank.cli.handlers.InputHandler;
 import com.acmebank.exceptions.CustomerNotFoundException;
 import com.acmebank.model.Customer;
 
 public class MainMenu extends Menu {
 
-    public MainMenu(HelpSystem helpSystem, InputHandler inputHandler) {
-        super(inputHandler, helpSystem);
+    public MainMenu(InputHandler inputHandler) {
+        super(inputHandler);
     }
 
     @Override
-    public void display() {
+    public void display(MenuController controller) {
         printTitle("Acme Bank — Teller System");
+
+        if (controller.getStartupMessage() != null) {
+            System.out.println(controller.getStartupMessage());
+        }
+
         System.out.println("1. Authenticate Customer");
         System.out.println("2. Exit");
         System.out.println("==========================================");
@@ -37,11 +41,16 @@ public class MainMenu extends Menu {
 
         try {
             Customer customer = menuController.getAuthService().authenticate(customerID);
-            menuController.setAuthenticatedCustomer(customer);
-            System.out.println("Authentication successful. Welcome, "
+            menuController.setCurrentCustomer(customer);
+
+            System.out.println("\nAuthentication successful. Welcome, "
                     + customer.getFirstName() + " " + customer.getLastName() + ".");
+
+            // Move straight into the customer menu
+            menuController.switchToMenu(new CustomerMenu(inputHandler));
+
         } catch (CustomerNotFoundException e) {
-            System.out.println("Customer not found. Please try again." + e.getMessage());
+            System.out.println("Customer not found. Please try again.");
         }
     }
 

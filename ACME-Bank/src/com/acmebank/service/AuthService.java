@@ -22,7 +22,7 @@ public class AuthService {
                 return customer;
             }
         }
-        throw new CustomerNotFoundException("No customer found with ID: " + customerID);
+        throw new CustomerNotFoundException(" No customer found with ID: " + customerID);
     }
 
     public Customer getAuthenticatedCustomer() {

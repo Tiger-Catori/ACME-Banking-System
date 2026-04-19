@@ -10,30 +10,27 @@ public class InputHandler {
         this.scanner = new Scanner(System.in);
     }
 
-    // Reading raw string line
     public String readLine(String prompt) {
-        System.out.println(prompt);
+        System.out.print(prompt + " ");
         return scanner.nextLine().trim();
     }
 
-    // Reads an int (loops until valid)
     public int readInt(String prompt) {
         while (true) {
             try {
-                System.out.println(prompt);
+                System.out.print(prompt + " ");
                 int value = Integer.parseInt(scanner.nextLine().trim());
                 return value;
-            }   catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter a whole number.");
             }
         }
     }
 
-    // Reads a double (loops until valid)
     public double readDouble(String prompt) {
         while (true) {
             try {
-                System.out.println(prompt);
+                System.out.print(prompt + " ");
                 double value = Double.parseDouble(scanner.nextLine().trim());
                 return value;
             } catch (NumberFormatException e) {

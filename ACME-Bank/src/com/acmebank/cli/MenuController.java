@@ -1,104 +1,107 @@
 package com.acmebank.cli;
-import com.acmebank.cli.handlers.*;
-import com.acmebank.cli.menus.*;
-import com.acmebank.model.*;
-import com.acmebank.service.*;
+
+import com.acmebank.cli.handlers.InputHandler;
+import com.acmebank.cli.menus.MainMenu;
+import com.acmebank.cli.menus.Menu;
+import com.acmebank.model.Customer;
+import com.acmebank.service.AuthService;
+import com.acmebank.service.AccountService;
+import com.acmebank.service.TransactionService;
+import com.acmebank.infrastructure.logging.AuditLogger;
+import com.acmebank.infrastructure.persistance.DataPersistance;
 
 import java.util.List;
 
 public class MenuController {
-
     private final AuthService authService;
     private final AccountService accountService;
     private final TransactionService transactionService;
-    private final FeeService feeService;
-    private final InterestCalculator interestCalculator;
-
-    private final HelpSystem helpSystem;
+    private final AuditLogger auditLogger;
+    private final DataPersistance dataPersistence;
+    private final List<Customer> allCustomers;
     private final InputHandler inputHandler;
+    private String startupMessage;
 
-    private final List<Customer> customers;
-    private Customer authenticatedCustomer = null;
-    private boolean running = true;
+    private Customer currentCustomer;
+    private Menu currentMenu;
+    private boolean running;
+    private boolean menuChanged;
 
     public MenuController(AuthService authService,
                           AccountService accountService,
                           TransactionService transactionService,
-                          FeeService feeService,
-                          InterestCalculator interestCalculator,
-                          List<Customer> customers,
-                          HelpSystem helpSystem,
+                          AuditLogger auditLogger,
+                          DataPersistance dataPersistence,
+                          List<Customer> allCustomers,
                           InputHandler inputHandler) {
-
         this.authService = authService;
         this.accountService = accountService;
         this.transactionService = transactionService;
-        this.feeService = feeService;
-        this.interestCalculator = interestCalculator;
-        this.customers = customers;
-        this.helpSystem = helpSystem;
+        this.auditLogger = auditLogger;
+        this.dataPersistence = dataPersistence;
+        this.allCustomers = allCustomers;
         this.inputHandler = inputHandler;
+        this.currentCustomer = null;
+        this.startupMessage = null;
+        this.running = true;
+        this.menuChanged = false;
     }
 
     public void start() {
-        System.out.println("====================");
-        System.out.println("Welcome to ACME Bank");
-        System.out.println("====================");
+        System.out.println("Welcome to ACME Bank Teller System");
+        System.out.println("===================================");
+        currentMenu = new MainMenu(inputHandler);
 
         while (running) {
-            if (authenticatedCustomer == null) {
-                MainMenu mainMenu = new MainMenu(helpSystem, inputHandler);
-                    mainMenu.run(this);
-            } // add customer menu here when created
+            menuChanged = false;
+            currentMenu.run(this);
+            if (!running) break;
+            // If menu changed, loop will run the new currentMenu
         }
-        System.out.print("AMCE Bank Teller System closed. Bye");
 
+        inputHandler.close();
+        System.out.println("Goodbye!");
     }
 
     public void stop() {
-        this.running = false;
+        running = false;
     }
 
-    public Customer getAuthenticatedCustomer() {
-        return authenticatedCustomer;
+    public void switchToMenu(Menu newMenu) {
+        this.currentMenu = newMenu;
+        this.menuChanged = true;
     }
 
-    public void logout() {
-        if(authenticatedCustomer != null) {
-            System.out.println("You have logged out: " + authenticatedCustomer.getFirstName() + " "
-                    + authenticatedCustomer.getLastName()+ ".");
+    public boolean hasMenuChanged() {
+        return menuChanged;
+    }
+
+    // Getters
+    public String getStartupMessage() {
+        return startupMessage;
+    }
+    public void setStartupMessage(String startupMessage) {
+        this.startupMessage = startupMessage;
+    }
+    public AuthService getAuthService() { return authService; }
+    public AccountService getAccountService() { return accountService; }
+    public TransactionService getTransactionService() { return transactionService; }
+    public AuditLogger getAuditLogger() { return auditLogger; }
+    public DataPersistance getDataPersistence() { return dataPersistence; }
+    public List<Customer> getAllCustomers() { return allCustomers; }
+    public InputHandler getInputHandler() { return inputHandler; }
+
+    public Customer getCurrentCustomer() { return currentCustomer; }
+    public void setCurrentCustomer(Customer customer) {
+        this.currentCustomer = customer;
+        if (customer != null) {
+            auditLogger.log("Teller authenticated customer: " + customer.getCustomerID());
+        } else {
+            auditLogger.log("Teller logged out current customer");
         }
-        this.authenticatedCustomer = null;
     }
 
-    public void setAuthenticatedCustomer(Customer authenticatedCustomer) {
-        this.authenticatedCustomer = authenticatedCustomer;
+    public void saveAllData() {
+        dataPersistence.saveCustomers(allCustomers);
     }
-
-    public AuthService getAuthService() {
-        return authService;
-    }
-    public AccountService getAccountService() {
-        return accountService;
-    }
-    public TransactionService getTransactionService() {
-        return transactionService;
-    }
-    public FeeService getFeeService() {
-        return feeService;
-    }
-    public InterestCalculator getInterestCalculator() {
-        return interestCalculator;
-    }
-    public HelpSystem getHelpSystem() {
-        return helpSystem;
-    }
-    public InputHandler getInputHandler() {
-        return inputHandler;
-    }
-    public List<Customer> getCustomers() {
-        return customers;
-    }
-
-
 }

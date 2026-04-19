@@ -1,42 +1,39 @@
 package com.acmebank.cli.menus;
 
-import com.acmebank.cli.handlers.HelpSystem;
-import com.acmebank.cli.handlers.InputHandler;
 import com.acmebank.cli.MenuController;
+import com.acmebank.cli.handlers.InputHandler;
+import com.acmebank.cli.handlers.HelpSystem;
 
 public abstract class Menu {
-
     protected final InputHandler inputHandler;
-    protected final HelpSystem helpSystem;
 
-    public Menu(InputHandler inputHandler, HelpSystem helpSystem) {
+    public Menu(InputHandler inputHandler) {
         this.inputHandler = inputHandler;
-        this.helpSystem = helpSystem;
     }
 
-    public abstract void display();
+    public abstract void display(MenuController controller);
     public abstract String getHelpText();
-    public abstract void handleInput(MenuController menuController, String choice);
+    public abstract void handleInput(MenuController controller, String choice);
 
-    public void run(MenuController menuController) {
-        boolean running = true;
+    public void run(MenuController controller) {
+        while (true) {
+            display(controller);
+            String choice = inputHandler.readLine("Enter your choice: ");
 
-        while (running) {
-            display();
-            String choice = inputHandler.readLine("Enter your choice:");
+            if (choice.equalsIgnoreCase("help") || choice.equals("?")) {
+                HelpSystem.showHelp(this);
+                continue;
+            }
 
-            if(choice.equalsIgnoreCase("exit")) {
-                System.out.println("Exiting to previous menu...");
-                running = false;
-            } else if(choice.equalsIgnoreCase("help") || choice.equals("?")) {
-                helpSystem.showHelp(this);
-            } else {
-                handleInput(menuController, choice);
+            handleInput(controller, choice);
+
+            if (controller.hasMenuChanged()) {
+                break;
             }
         }
     }
 
-    protected void printTitle (String title) {
+    protected void printTitle(String title) {
         System.out.println("\n==========================================");
         System.out.println(title);
         System.out.println("==========================================");
@@ -45,6 +42,4 @@ public abstract class Menu {
     protected void printInvalidOptions() {
         System.out.println("Please select a valid option!");
     }
-
-
 }
