@@ -139,7 +139,7 @@ public class BusinessAccount extends Account {
     }
 
     public void applyFee(double amount) {
-        setBalance(new BigDecimal(getBalance() + amount)
+        setBalance(new BigDecimal(getBalance() - amount)
                 .setScale(2, RoundingMode.HALF_UP).doubleValue());
     }
 
