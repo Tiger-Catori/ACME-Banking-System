@@ -68,7 +68,7 @@ public class JsonPersistance implements DataPersistance {
     @Override
     public List<Customer> loadCustomers() {
         File file = new File(filePath);
-        if (!file.exists()) {
+        if (!file.exists() || file.length() == 0) {
             logger.log("No existing data file found at "+ filePath + ". Starting with empty customer list.");
             return new ArrayList<>();
         }
