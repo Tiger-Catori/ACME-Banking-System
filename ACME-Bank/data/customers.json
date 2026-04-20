@@ -1,0 +1,33 @@
+[ {
+  "customerID" : 487364,
+  "firstName" : "John",
+  "lastName" : "Doe",
+  "accounts" : [ {
+    "@class" : "com.acmebank.model.PersonalAccount",
+    "accountNumber" : "35452469",
+    "sortCode" : {
+      "part1" : 60,
+      "part2" : 60,
+      "part3" : 60
+    },
+    "transactionHistory" : [ ],
+    "balance" : 240.36
+  }, {
+    "@class" : "com.acmebank.model.BusinessAccount",
+    "accountNumber" : "26256776",
+    "sortCode" : {
+      "part1" : 60,
+      "part2" : 70,
+      "part3" : 70
+    },
+    "transactionHistory" : [ ],
+    "businessType" : "SOLE_TRADER",
+    "overDraftAvailable" : false,
+    "chequeBook" : false,
+    "businessLoanActive" : false,
+    "feeDate" : "2026-04-20",
+    "overDraft" : 0.0,
+    "annualFee" : 120.0,
+    "balance" : 280.0
+  } ]
+} ]

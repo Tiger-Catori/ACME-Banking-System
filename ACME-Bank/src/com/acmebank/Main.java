@@ -13,11 +13,13 @@ import com.acmebank.model.PersonalAccount;
 import com.acmebank.service.*;
 import com.acmebank.exceptions.DuplicateAccountNumberException;
 
+import java.io.File;
 import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
+        new File("data/customers.json").delete();
         // 1. Setup logging and persistence
         AuditLogger auditLogger = new FileAuditLogger("data/audit.log");
         DataPersistance dataPersistence = new JsonPersistance("data/customers.json", auditLogger);
@@ -45,7 +47,6 @@ public class Main {
             dataPersistence.saveCustomers(allCustomers);
 
             StringBuilder sb = new StringBuilder();
-            sb.append("\n==========================================\n");
             sb.append("TEST CUSTOMER CREATED\n");
             sb.append("==========================================\n");
             sb.append("Name: John Doe\n");

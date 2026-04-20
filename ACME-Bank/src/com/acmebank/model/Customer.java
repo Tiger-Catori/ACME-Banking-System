@@ -1,8 +1,9 @@
 package com.acmebank.model;
 
+import com.acmebank.exceptions.DuplicateAccountException;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.acmebank.exceptions.DuplicateIsaException;
+import com.acmebank.exceptions.DuplicateAccountException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +16,8 @@ public class Customer {
     private List<Account> accountList = new ArrayList<>();
 
     @JsonCreator
-    public Customer(@JsonProperty("name") String firstName,
-                    @JsonProperty("age") String lastName) {
+    public Customer(@JsonProperty("firstname") String firstName,
+                    @JsonProperty("lastname") String lastName) {
         // Customer ID is random 6 digit number
         this.customerID = (int) (Math.random() * 900_000) + 100_000;
         this.firstName = firstName;
@@ -44,15 +45,15 @@ public class Customer {
         return customerID;
     }
 
-    public void addAccount(Account account) throws DuplicateIsaException {
+    public void addAccount(Account account) throws DuplicateAccountException {
         Class<?> accountType = account.getClass();
 
         boolean exists = accountList.stream()
                 .anyMatch(obj -> obj.getClass() == accountType);
 
-        if (account instanceof IsaAccount && exists) {
-            throw new DuplicateIsaException(
-                    "ISA account already exists. Only one ISA is permitted per customer.");
+        if (account instanceof IsaAccount && exists || account instanceof BusinessAccount && exists) {
+            throw new DuplicateAccountException(
+                    account.getClass().getSimpleName() + " account already exists. Only one " + account.getClass().getSimpleName() + " is permitted per customer.");
         }
         accountList.add(account);
     }

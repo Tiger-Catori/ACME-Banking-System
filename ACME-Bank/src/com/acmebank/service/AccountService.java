@@ -137,8 +137,8 @@ public class AccountService {
     private Account addAccountToCustomerAndSave(Customer customer, Account account) {
         try {
             customer.addAccount(account);   // may throw DuplicateIsaException
-        } catch (DuplicateIsaException e) {
-            auditLogger.log("FAILED: Duplicate ISA attempt for customer " + customer.getCustomerID());
+        } catch (DuplicateAccountException e) {
+            auditLogger.log("FAILED: Duplicate " + account.getClass().getSimpleName() + " attempt for customer " + customer.getCustomerID());
             throw e;
         }
 
